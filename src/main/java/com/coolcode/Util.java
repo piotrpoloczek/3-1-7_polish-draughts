@@ -1,11 +1,11 @@
 package com.coolcode;
 
-import com.coolcode.model.Coordinates;
-
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Util {
-
+    private static final int MIN_BOARD_SIZE = 10;
+    private static final int MAX_BOARD_SIZE = 20;
 
     public static int[] convertCoordinateToArray(String userInput, int size) {
         int[] indices = new int[2];
@@ -31,10 +31,29 @@ public class Util {
     }
 
     public static Coordinates crateCoordinate (String position, int size){
-        int[] curent = Util.convertCoordinateToArray(position, size);
-        int Row = curent[0];
-        int Col = curent[1];
+        int[] current = Util.convertCoordinateToArray(position, size);
+        int Row = current[0];
+        int Col = current[1];
         Coordinates coordinates = new Coordinates(Row, Col);
         return  coordinates;
     };
+
+    public static int getBoardSize(){
+        Scanner scanner = new Scanner(System.in);
+        int size;
+        while (true) {
+            System.out.print("Enter board size (between 10 and 20): ");
+            try {
+                size = scanner.nextInt();
+            } catch (NumberFormatException e) {
+                System.out.println("Enter valid number!");
+                continue;
+            }
+            if (MIN_BOARD_SIZE <= size && size <= MAX_BOARD_SIZE) {
+                return size;
+            } else {
+                System.out.println("Board size should be between 10 and 20");
+            }
+        }
+    }
 }
